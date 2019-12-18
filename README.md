@@ -67,4 +67,4 @@ Alternatively, you can use SLIMax Manager Pro, which is free if used with any Fa
 Well... Everything.
 
 ## Original Project
-This is a fork of @darknao's btClubSportWheel project.
+This is a fork of @darknao's btClubSportWheel project found here: https://github.com/darknao/btClubSportWheel
