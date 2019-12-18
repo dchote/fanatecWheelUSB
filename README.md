@@ -35,14 +35,6 @@ The only requirement so far, is at least 1 SPI connectivity available.
 #### Matching pin for Formula / BMW / Porsche ####
 ![Porsche plug pinout](http://i.imgur.com/WazqNZlm.jpg)
 
-#### Matching pin for Universal Hub / CSL P1 ####
-![UNI Hub pinout](http://i.imgur.com/pC5L8Lum.jpg)
-
-#### Wiring Schematics
-![Wiring schematics](https://phunk.me/Y86946)
-This is the same schematics for Bluetooth and USB version.  
-Just forget about the Adafruit Power Boost (upper left) and the Bluegiga WT12 (bottom right) for the USB version.  
-There is also room for 8 extra buttons on pin 2 to 9 (common ground) if you need more inputs.
 
 ## Compatible Wheels
 All CSW / CSL rims are working with this conversion. That includes:
