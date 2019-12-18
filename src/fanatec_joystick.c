@@ -108,39 +108,39 @@ int fanatec_joystick_send(void)
 
 int fanatec_lights_recv(void *buffer, uint32_t timeout) 
 {
-	usb_packet_t *rx_packet;
-	uint32_t begin = millis();
+  usb_packet_t *rx_packet;
+  uint32_t begin = millis();
 
-	while (1) {
-		if (!usb_configuration) {
-		  return -1;
-		} 
+  while (1) {
+    if (!usb_configuration) {
+      return -1;
+    } 
+  
+    rx_packet = usb_rx(LIGHTS_ENDPOINT);
     
-		rx_packet = usb_rx(LIGHTS_ENDPOINT);
-		
     if (rx_packet) break;
-		if (millis() - begin > timeout || !timeout) return 0;
-		
+    if (millis() - begin > timeout || !timeout) return 0;
+    
     yield();
-	}
-  
-	memcpy(buffer, rx_packet->buf, LIGHTS_SIZE);
-	usb_free(rx_packet);
-  
-	return LIGHTS_SIZE;
+  }
+
+  memcpy(buffer, rx_packet->buf, LIGHTS_SIZE);
+  usb_free(rx_packet);
+
+  return LIGHTS_SIZE;
 }
 
 int fanatec_lights_available(void)
 {
-	uint32_t count;
-
-	if (!usb_configuration) {
-	  return 0;
-	} 
+  uint32_t count;
   
-	count = usb_rx_byte_count(LIGHTS_ENDPOINT);
+  if (!usb_configuration) {
+    return 0;
+  } 
   
-	return count;
+  count = usb_rx_byte_count(LIGHTS_ENDPOINT);
+  
+  return count;
 }
 
 #endif // JOYSTICK_INTERFACE
