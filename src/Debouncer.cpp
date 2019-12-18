@@ -1,4 +1,8 @@
 /*
+ *
+ * Project: https://github.com/dchote/fanatecWheelUSB
+ * Author: Daniel Chote
+ *
  * Copyright (C) 2015 darknao
  * https://github.com/darknao/btClubSportWheel
  *
@@ -22,24 +26,22 @@
 #include "Arduino.h"
 
 Debouncer::Debouncer()
-    : previous_millis(0)
-    , interval_millis(50)
-    , value(0)
+  : previous_millis(0)
+  , interval_millis(50)
+  , value(0)
 {}
 
-void Debouncer::interval(uint16_t interval_millis)
-{
-    this->interval_millis = interval_millis;
+void Debouncer::interval(uint16_t interval_millis) {
+  this->interval_millis = interval_millis;
 }
 
-uint8_t Debouncer::get(uint8_t current_value)
-{
-    if(current_value != value) {
-        if ( millis() - previous_millis >= interval_millis ) {
-            previous_millis = millis();
-            setValue(current_value);
-        }
+uint8_t Debouncer::get(uint8_t current_value) {
+  if (current_value != value) {
+    if (millis() - previous_millis >= interval_millis) {
+      previous_millis = millis();
+      setValue(current_value);
     }
+  }
 
-    return value;
+  return value;
 }

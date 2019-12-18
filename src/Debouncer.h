@@ -1,4 +1,8 @@
 /*
+ *
+ * Project: https://github.com/dchote/fanatecWheelUSB
+ * Author: Daniel Chote
+ *
  * Copyright (C) 2015 darknao
  * https://github.com/darknao/btClubSportWheel
  *
@@ -27,15 +31,15 @@ class Debouncer
 {
   public:
     Debouncer();
-
+    
     void interval(uint16_t interval_millis);
     uint8_t get(uint8_t value);
-
+    
   protected:
     unsigned long previous_millis;
     uint16_t interval_millis;
     uint8_t value;
-
+    
   private:
     inline void setValue(uint8_t value) {this->value = value;}
 };

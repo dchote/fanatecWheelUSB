@@ -3,36 +3,21 @@ TARGETPATH = firmware
 # The teensy version to use, 30, 31, or LC
 TEENSY = LC
 
-# Device type: USB (wired) or BT (bluetooth)
-TYPE = USB
-
 # Set to 24000000, 48000000, or 96000000 to set CPU core speed
 TEENSY_CORE_SPEED = 24000000
 
 # Some libraries will require this to be defined
 # If you define this, you will break the default main.cpp
-ARDUINO = 10600
+ARDUINO = 10810
 
 # configurable options
-OPTIONS = -DLAYOUT_US_ENGLISH
+OPTIONS = -DLAYOUT_US_ENGLISH -DUSB_SERIAL_HID
 
 # directory to build in
 BUILDDIR = $(abspath $(CURDIR)/build)
 
-
-ifeq ($(TYPE), USB)
-	OPTIONS += -DIS_USB
-else
-	ifeq ($(TYPE), BT_DEBUG)
-		OPTIONS += -DHAS_DEBUG
-	endif
-	ifeq ($(TYPE), BT)
-		OPTIONS += -DUSB_DISABLED
-	endif
-endif
-
 # The name of your project (used to name the compiled .hex file)
-TARGET = csw.teensy$(TEENSY)_$(TYPE)
+TARGET = fanatecWheelUSB
 
 #************************************************************************
 # Location of Teensyduino utilities, Toolchain, and Arduino Libraries.
@@ -41,19 +26,10 @@ TARGET = csw.teensy$(TEENSY)_$(TYPE)
 #************************************************************************
 
 # path location for Teensy Loader, teensy_post_compile and teensy_reboot
-TOOLSPATH = $(CURDIR)/tools
-
-ifeq ($(OS),Windows_NT)
-    $(error What is Win Dose?)
-else
-    UNAME_S := $(shell uname -s)
-    ifeq ($(UNAME_S),Darwin)
-        TOOLSPATH = /Applications/Arduino.app/Contents/Java/hardware/tools/
-    endif
-endif
+TOOLSPATH = /Applications/Arduino.app/Contents/Java/hardware/tools
 
 # path location for Teensy 3 core
-COREPATH = teensy3
+COREPATH = /Applications/Arduino.app/Contents/Java/hardware/teensy/avr/cores/teensy3
 
 # path location for Arduino libraries
 LIBRARYPATH = libraries
@@ -66,10 +42,10 @@ COMPILERPATH = $(TOOLSPATH)/arm/bin
 #************************************************************************
 
 # CPPFLAGS = compiler options for C and C++
-CPPFLAGS = -Wall -g -Os -mthumb -ffunction-sections -fdata-sections -nostdlib -MMD $(OPTIONS) -DTEENSYDUINO=124 -DF_CPU=$(TEENSY_CORE_SPEED) -Isrc -I$(COREPATH)
+CPPFLAGS = -Wall -g -Os -mthumb -ffunction-sections -fdata-sections -nostdlib -MMD $(OPTIONS) -DTEENSYDUINO=148 -DF_CPU=$(TEENSY_CORE_SPEED) -Isrc -I$(COREPATH)
 
 # compiler options for C++ only
-CXXFLAGS = -std=gnu++0x -felide-constructors -fno-exceptions -fno-rtti
+CXXFLAGS = -std=gnu++14 -felide-constructors -fno-exceptions -fno-rtti -fpermissive -felide-constructors
 
 # compiler options for C only
 CFLAGS =
