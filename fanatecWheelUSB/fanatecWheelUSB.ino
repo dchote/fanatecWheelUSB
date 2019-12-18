@@ -1,4 +1,3 @@
-#line 1 "csw.cpp"
 /*
  *
  * Project: https://github.com/dchote/fanatecWheelUSB
