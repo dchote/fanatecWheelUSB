@@ -97,9 +97,9 @@ LC_FILES := $(wildcard $(LIBRARYPATH)/*/*.c)
 LCPP_FILES := $(wildcard $(LIBRARYPATH)/*/*.cpp)
 TC_FILES := $(wildcard $(COREPATH)/*.c)
 TCPP_FILES := $(wildcard $(COREPATH)/*.cpp)
-C_FILES := $(wildcard src/*.c)
-CPP_FILES := $(wildcard src/*.cpp)
-INO_FILES := $(wildcard src/*.ino)
+C_FILES := $(wildcard fanatecWheelUSB/*.c)
+CPP_FILES := $(wildcard fanatecWheelUSB/*.cpp)
+INO_FILES := $(wildcard fanatecWheelUSB/*.ino)
 
 # include paths for libraries
 L_INC := $(foreach lib,$(filter %/, $(wildcard $(LIBRARYPATH)/*/)), -I$(lib))

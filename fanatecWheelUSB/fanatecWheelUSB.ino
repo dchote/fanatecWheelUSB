@@ -33,7 +33,7 @@
 #include "Debouncer.h"
 
 
-#define MAX_SPEED   5000
+#define MAX_SPEED 5000
 
 uint8_t hid_data[35];
 uint32_t max_delay = 150000; // overhead if below 120ms
@@ -77,13 +77,12 @@ uint32_t usb_time;
 
 uint8_t hid_pck[7];
 
-Debouncer * btDebncer = new Debouncer[89];
+Debouncer *btDebncer = new Debouncer[89];
 Debouncer hatDebncer = Debouncer();
 
 byte rotary_debounce = 0;
 int8_t rotary_value = 0;
 uint8_t main_link_id = 1;
-
 uint8_t clutch_max = 0xFF;
 
 
@@ -191,7 +190,7 @@ void loop() {
       
       rotary_value = csw_in.encoder;
       
-      if(csw_in.id != CSLMCLGT3){
+      if (csw_in.id != CSLMCLGT3) {
         whButton(8, csw_in.buttons[1] & 0x10); // first top left
         whButton(10, csw_in.buttons[1] & 0x02); // second top left
         whButton(13, csw_in.buttons[2] & 0x02); // hat button
@@ -199,9 +198,7 @@ void loop() {
         
         whButton(17, rotary_value == -1); // left
         whButton(18, rotary_value == 1); // right
-        
       }
-      
       
       if (csw_in.id == UNIHUB || csw_in.id == XBOXHUB) {
         // Uni Hub extra buttons
@@ -235,10 +232,7 @@ void loop() {
         whButton(38, csw_in.btnHub[1] & 0x08);
       }
       
-      
       whHat(csw_in.buttons[0] & 0x0f, false);
-      
-      // Serial.println(String("button: ") + hid_data[3]);
       
       if (csw_in.id == CSLMCLGT3) {
         whButton(8, (csw_in.buttons[1] & 0x10) && ((csw_in.garbage[3] & 0xF0) == 0x10)); // switch left up
@@ -311,7 +305,7 @@ void loop() {
         }
         
         // clutch paddle
-        switch(csw_in.garbage[2] & 0x0F) {
+        switch (csw_in.garbage[2] & 0x0F) {
           case 0x01:
             // bite point
             whDoubleClutch(~csw_in.axisX, ~csw_in.axisY);
@@ -321,7 +315,7 @@ void loop() {
             whDoubleClutch(map(~csw_in.axisX & 0xFF,0,0xFF,0,clutch_max) , ~csw_in.axisY&0xff);
             break;
           default:
-          whDoubleAxis(~csw_in.axisX, ~csw_in.axisY);
+            whDoubleAxis(~csw_in.axisX, ~csw_in.axisY);
         }
         
         //whButton(11, mcl_in.buttons[2] & 0x20); // display button
@@ -390,8 +384,8 @@ void loop() {
       break;
     case MCL_WHEEL:
       // McLaren GT3
-      
       transferMclData(&mcl_out, &mcl_in, sizeof(mcl_out.raw));
+      
       init_wheel();
       
       // Wheel ID
@@ -487,7 +481,7 @@ void loop() {
       }
       
       // clutch paddle
-      switch(mcl_in.garbage[2] & 0x0F) {
+      switch (mcl_in.garbage[2] & 0x0F) {
         case 0x01:
           // bite point
           whDoubleClutch(~mcl_in.axisX, ~mcl_in.axisY);
@@ -604,7 +598,7 @@ void whHat(int8_t val, bool is_csl) {
   val = hatDebncer.get(val);
   
   if (is_csl) { // CSL
-    switch (val){
+    switch (val) {
       case 4: val=0;break;
       case 2: val=2;break;
       case 8: val=4;break;
@@ -612,7 +606,7 @@ void whHat(int8_t val, bool is_csl) {
       default: val=0xFF;
     }
   } else { // CSW
-    switch (val){
+    switch (val) {
       case 1: val=0;break;
       case 2: val=6;break;
       case 4: val=2;break;
@@ -683,7 +677,7 @@ void hid_output(uint8_t link_id, uint16_t data_length, const uint8_t *data) {
       }
     }
   } else if(data[2] == 0x01 && data[3] == 0x03) {
-      // rumbles
+    // rumbles
     if (csw_out.id != UNIHUB && csw_in.id != CSLMCLGT3) {
       csw_out.rumble[0] = (data[4] & 0xff);
       csw_out.rumble[1] = (data[5] & 0xff);

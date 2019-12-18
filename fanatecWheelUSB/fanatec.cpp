@@ -182,7 +182,7 @@ uint8_t getFirstByte() {
           Serial.println(s, HEX);
         #endif
         
-        if((previousByte == 0xA5 && s == 0x09) || (previousByte == 0x52 && s == 0x84)) {
+        if ((previousByte == 0xA5 && s == 0x09) || (previousByte == 0x52 && s == 0x84)) {
           // Here we go
           firstByte = previousByte;
           
@@ -190,7 +190,7 @@ uint8_t getFirstByte() {
             Serial.println("mcl: Fast Forward to next transaction");
           #endif
             
-          for(int i=0; i<31; i++) {
+          for (int i=0; i<31; i++) {
             buf = SPI.transfer(0x00);
             
             #ifdef HAS_DEBUG

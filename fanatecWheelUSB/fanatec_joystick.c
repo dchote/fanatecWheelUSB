@@ -47,7 +47,7 @@ uint8_t fanatec_joystick_data[32];
 // Maximum number of transmit packets to queue so we don't starve other endpoints for memory
 #define TX_PACKET_LIMIT 3
 
-static uint8_t transmit_previous_timeout=0;
+static uint8_t transmit_previous_timeout = 0;
 
 // When the PC isn't listening, how long do we wait before discarding data?
 #define TX_TIMEOUT_MSEC 30
@@ -72,7 +72,7 @@ static uint8_t transmit_previous_timeout=0;
 
 int fanatec_joystick_send(void)
 {
-  uint32_t wait_count=0;
+  uint32_t wait_count = 0;
   usb_packet_t *tx_packet;
 
   //serial_print("send");
