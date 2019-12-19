@@ -651,12 +651,18 @@ static uint8_t flightsim_report_desc[] = {
 #define SEREMU_INTERFACE_DESC_SIZE	0
 #endif
 
-#define JOYSTICK_INTERFACE_DESC_POS	SEREMU_INTERFACE_DESC_POS+SEREMU_INTERFACE_DESC_SIZE
-#ifdef  JOYSTICK_INTERFACE
-#define JOYSTICK_INTERFACE_DESC_SIZE	9+9+7
-#define JOYSTICK_HID_DESC_OFFSET	JOYSTICK_INTERFACE_DESC_POS+9
+#ifdef FANATEC_CSW
+  #define JOYSTICK_INTERFACE_DESC_POS	SEREMU_INTERFACE_DESC_POS+SEREMU_INTERFACE_DESC_SIZE
+  #define JOYSTICK_INTERFACE_DESC_SIZE	9+9+7+7
+  #define JOYSTICK_HID_DESC_OFFSET	JOYSTICK_INTERFACE_DESC_POS+9
 #else
-#define JOYSTICK_INTERFACE_DESC_SIZE	0
+  #define JOYSTICK_INTERFACE_DESC_POS	SEREMU_INTERFACE_DESC_POS+SEREMU_INTERFACE_DESC_SIZE
+  #ifdef  JOYSTICK_INTERFACE
+  #define JOYSTICK_INTERFACE_DESC_SIZE	9+9+7
+  #define JOYSTICK_HID_DESC_OFFSET	JOYSTICK_INTERFACE_DESC_POS+9
+  #else
+  #define JOYSTICK_INTERFACE_DESC_SIZE	0
+  #endif
 #endif
 
 #define MTP_INTERFACE_DESC_POS		JOYSTICK_INTERFACE_DESC_POS+JOYSTICK_INTERFACE_DESC_SIZE
@@ -1179,35 +1185,6 @@ static uint8_t config_descriptor[CONFIG_DESC_SIZE] = {
         SEREMU_RX_INTERVAL,			// bInterval
 #endif // SEREMU_INTERFACE
 
-#ifdef JOYSTICK_INTERFACE
-        // interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
-        9,                                      // bLength
-        4,                                      // bDescriptorType
-        JOYSTICK_INTERFACE,                     // bInterfaceNumber
-        0,                                      // bAlternateSetting
-        1,                                      // bNumEndpoints
-        0x03,                                   // bInterfaceClass (0x03 = HID)
-        0x00,                                   // bInterfaceSubClass
-        0x00,                                   // bInterfaceProtocol
-        0,                                      // iInterface
-        // HID interface descriptor, HID 1.11 spec, section 6.2.1
-        9,                                      // bLength
-        0x21,                                   // bDescriptorType
-        0x11, 0x01,                             // bcdHID
-        0,                                      // bCountryCode
-        1,                                      // bNumDescriptors
-        0x22,                                   // bDescriptorType
-        LSB(sizeof(joystick_report_desc)),      // wDescriptorLength
-        MSB(sizeof(joystick_report_desc)),
-        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
-        7,                                      // bLength
-        5,                                      // bDescriptorType
-        JOYSTICK_ENDPOINT | 0x80,               // bEndpointAddress
-        0x03,                                   // bmAttributes (0x03=intr)
-        JOYSTICK_SIZE, 0,                       // wMaxPacketSize
-        JOYSTICK_INTERVAL,                      // bInterval
-#endif // JOYSTICK_INTERFACE
-
 #ifdef FANATEC_CSW
         // Sliders + Buttons
         // interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
@@ -1244,7 +1221,37 @@ static uint8_t config_descriptor[CONFIG_DESC_SIZE] = {
         0x03,                                   // bmAttributes (0x03=intr)
         LIGHTS_SIZE, 0,                         // wMaxPacketSize
         LIGHTS_INTERVAL,                        // bInterval   
+#else
+  #ifdef JOYSTICK_INTERFACE
+          // interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
+          9,                                      // bLength
+          4,                                      // bDescriptorType
+          JOYSTICK_INTERFACE,                     // bInterfaceNumber
+          0,                                      // bAlternateSetting
+          1,                                      // bNumEndpoints
+          0x03,                                   // bInterfaceClass (0x03 = HID)
+          0x00,                                   // bInterfaceSubClass
+          0x00,                                   // bInterfaceProtocol
+          0,                                      // iInterface
+          // HID interface descriptor, HID 1.11 spec, section 6.2.1
+          9,                                      // bLength
+          0x21,                                   // bDescriptorType
+          0x11, 0x01,                             // bcdHID
+          0,                                      // bCountryCode
+          1,                                      // bNumDescriptors
+          0x22,                                   // bDescriptorType
+          LSB(sizeof(joystick_report_desc)),      // wDescriptorLength
+          MSB(sizeof(joystick_report_desc)),
+          // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
+          7,                                      // bLength
+          5,                                      // bDescriptorType
+          JOYSTICK_ENDPOINT | 0x80,               // bEndpointAddress
+          0x03,                                   // bmAttributes (0x03=intr)
+          JOYSTICK_SIZE, 0,                       // wMaxPacketSize
+          JOYSTICK_INTERVAL,                      // bInterval
+  #endif // JOYSTICK_INTERFACE
 #endif
+
 
 
 #ifdef MTP_INTERFACE
