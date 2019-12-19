@@ -62,7 +62,20 @@ Well... Everything.
 Currently the Makefile is setup to build on MacOS, building will eventually be done using a container and Github Actions.
 Please ensure you have the latest Arduino IDE and Teensyduino (https://www.pjrc.com/teensy/td_download.html) installed.
 
-You will need to copy the files from `hid_hack` in to your teensy3 cores folder. Please create a backup copy of the files before doing so.
+You will need to copy the files from `core_files` in to your teensy3 cores folder. Please create a backup copy of the files before doing so.
+
+To build in the Arduino IDE you will need to edit `hardware/teensy/avr/boards.txt` and add the following:
+```
+teensy35.menu.usb.fanatec=Fanatec CSW
+teensy35.menu.usb.fanatec.build.usbtype=FANATEC_CSW
+teensy31.menu.usb.fanatec=Fanatec CSW
+teensy31.menu.usb.fanatec.build.usbtype=FANATEC_CSW
+teensy30.menu.usb.fanatec=Fanatec CSW
+teensy30.menu.usb.fanatec.build.usbtype=FANATEC_CSW
+teensyLC.menu.usb.fanatec=Fanatec CSW
+teensyLC.menu.usb.fanatec.build.usbtype=FANATEC_CSW
+``` 
+Open the project in the Arduino IDE and then select your Teensy board (either LC or 3.1/3.2), then under USB Type select `Fanatec CSW`.  The project should then build.
 
 ## Original Project
 This is a fork of @darknao's btClubSportWheel project found here: https://github.com/darknao/btClubSportWheel
