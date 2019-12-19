@@ -109,6 +109,7 @@ wheel_type detectWheelType() {
 uint8_t getFirstByte() {
   uint8_t firstByte;
   uint8_t buf;
+  
   // Send packet, twice (see transferCslData)
   for (int z=0; z<2; z++) {
     SPI.beginTransaction(settingsA);
@@ -134,7 +135,7 @@ uint8_t getFirstByte() {
         Serial.println("csw: fast forward to next transaction");
       #endif
       
-      for(int i=0; i<=31; i++) {
+      for (int i=0; i<=31; i++) {
         buf = SPI.transfer(0x00);
         
         #ifdef HAS_DEBUG
