@@ -40,8 +40,6 @@
 #include "HardwareSerial.h"
 #include <string.h> // for memcpy()
 
-#ifdef JOYSTICK_INTERFACE // defined by usb_dev.h -> usb_desc.h
-
 uint8_t fanatec_joystick_data[32];
 
 // Maximum number of transmit packets to queue so we don't starve other endpoints for memory
@@ -142,5 +140,3 @@ int fanatec_lights_available(void)
   
   return count;
 }
-
-#endif // JOYSTICK_INTERFACE

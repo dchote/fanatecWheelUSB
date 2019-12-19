@@ -38,8 +38,6 @@
 
 #include "usb_desc.h"
 
-#if defined(JOYSTICK_INTERFACE)
-
 #include <inttypes.h>
 
 // C language implementation
@@ -155,7 +153,5 @@ fanatec_joystick_class fJoystick;
 uint8_t fanatec_joystick_class::manual_mode = 0;
 
 #endif // __cplusplus
-
-#endif // JOYSTICK_INTERFACE
 
 #endif // FANATECjoystick_h_

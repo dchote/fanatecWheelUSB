@@ -62,5 +62,7 @@ Well... Everything.
 Currently the Makefile is setup to build on MacOS, building will eventually be done using a container and Github Actions.
 Please ensure you have the latest Arduino IDE and Teensyduino (https://www.pjrc.com/teensy/td_download.html) installed.
 
+You will need to copy the files from `hid_hack` in to your teensy3 cores folder. Please create a backup copy of the files before doing so.
+
 ## Original Project
 This is a fork of @darknao's btClubSportWheel project found here: https://github.com/darknao/btClubSportWheel
