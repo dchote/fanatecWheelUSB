@@ -11,7 +11,6 @@ A clear and concise description of what the bug is.
  - Wheelbase: [e.g. OSW]
  - Rim: [e.g. BMW GT2, Formula]
  - Teensy Board: [e.g. LC, 31 or 32]
- - Firmware type: [e.g. BT, USB]
  - Firmware version, if known: 
 
 **Additional context**
