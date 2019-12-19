@@ -62,7 +62,7 @@ Well... Everything.
 Currently the Makefile is setup to build on MacOS, building will eventually be done using a container and Github Actions.
 Please ensure you have the latest Arduino IDE and Teensyduino (https://www.pjrc.com/teensy/td_download.html) installed.
 
-You will need to copy the files from `core_files` in to your teensy3 cores folder. Please create a backup copy of the files before doing so.
+You will need to copy the files from `core_files` in to your teensy3 cores folder (`hardware/teensy/avr/cores/teensy3`). Please create a copy of the existing files so you can revert if needed.
 
 To build in the Arduino IDE you will need to edit `hardware/teensy/avr/boards.txt` and add the following:
 ```
