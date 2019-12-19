@@ -1590,6 +1590,11 @@ extern struct usb_string_descriptor_struct usb_string_product_name
 extern struct usb_string_descriptor_struct usb_string_serial_number
         __attribute__ ((weak, alias("usb_string_serial_number_default")));
 
+#ifdef JOYSTICK_NAME
+extern struct usb_string_descriptor_struct usb_string_interface_name
+        __attribute__ ((weak, alias("usb_string_interface_name_default")));
+#endif
+
 struct usb_string_descriptor_struct string0 = {
         4,
         3,
@@ -1611,6 +1616,16 @@ struct usb_string_descriptor_struct usb_string_serial_number_default = {
         3,
         {0,0,0,0,0,0,0,0,0,0}
 };
+
+#ifdef JOYSTICK_NAME
+struct usb_string_descriptor_struct usb_string_interface_name_default = {
+        2 + JOYSTICK_NAME_LEN * 2,
+        3,
+        JOYSTICK_NAME
+};
+#endif
+
+
 #ifdef MTP_INTERFACE
 struct usb_string_descriptor_struct usb_string_mtp = {
 	2 + 3 * 2,
@@ -1676,9 +1691,14 @@ const usb_descriptor_list_t usb_descriptor_list[] = {
         {0x2200, MOUSE_INTERFACE, mouse_report_desc, sizeof(mouse_report_desc)},
         {0x2100, MOUSE_INTERFACE, config_descriptor+MOUSE_HID_DESC_OFFSET, 9},
 #endif
-#ifdef JOYSTICK_INTERFACE
+#ifdef FANATEC_CSW
         {0x2200, JOYSTICK_INTERFACE, joystick_report_desc, sizeof(joystick_report_desc)},
         {0x2100, JOYSTICK_INTERFACE, config_descriptor+JOYSTICK_HID_DESC_OFFSET, 9},
+#else
+  #ifdef JOYSTICK_INTERFACE
+          {0x2200, JOYSTICK_INTERFACE, joystick_report_desc, sizeof(joystick_report_desc)},
+          {0x2100, JOYSTICK_INTERFACE, config_descriptor+JOYSTICK_HID_DESC_OFFSET, 9},
+  #endif
 #endif
 #ifdef RAWHID_INTERFACE
 	{0x2200, RAWHID_INTERFACE, rawhid_report_desc, sizeof(rawhid_report_desc)},
@@ -1703,6 +1723,9 @@ const usb_descriptor_list_t usb_descriptor_list[] = {
         {0x0301, 0x0409, (const uint8_t *)&usb_string_manufacturer_name, 0},
         {0x0302, 0x0409, (const uint8_t *)&usb_string_product_name, 0},
         {0x0303, 0x0409, (const uint8_t *)&usb_string_serial_number, 0},
+        #ifdef JOYSTICK_NAME
+          {0x0304, 0x0409, (const uint8_t *)&usb_string_interface_name, 0},
+        #endif
 	{0, 0, NULL, 0}
 };
 
