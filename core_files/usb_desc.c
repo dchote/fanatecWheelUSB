@@ -1208,6 +1208,45 @@ static uint8_t config_descriptor[CONFIG_DESC_SIZE] = {
         JOYSTICK_INTERVAL,                      // bInterval
 #endif // JOYSTICK_INTERFACE
 
+#ifdef FANATEC_CSW
+        // Sliders + Buttons
+        // interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
+        9,                                      // bLength
+        4,                                      // bDescriptorType
+        JOYSTICK_INTERFACE,                     // bInterfaceNumber
+        0,                                      // bAlternateSetting
+        2,                                      // bNumEndpoints
+        0x03,                                   // bInterfaceClass (0x03 = HID)
+        0x00,                                   // bInterfaceSubClass
+        0x00,                                   // bInterfaceProtocol
+        4,                                      // iInterface
+        // HID interface descriptor, HID 1.11 spec, section 6.2.1
+        9,                                      // bLength
+        0x21,                                   // bDescriptorType
+        0x11, 0x01,                             // bcdHID
+        0,                                      // bCountryCode
+        1,                                      // bNumDescriptors
+        0x22,                                   // bDescriptorType
+        LSB(sizeof(joystick_report_desc)),      // wDescriptorLength
+        MSB(sizeof(joystick_report_desc)),
+        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
+        7,                                      // bLength
+        5,                                      // bDescriptorType
+        JOYSTICK_ENDPOINT | 0x80,               // bEndpointAddress
+        0x03,                                   // bmAttributes (0x03=intr)
+        JOYSTICK_SIZE, 0,                       // wMaxPacketSize
+        JOYSTICK_INTERVAL,                      // bInterval
+        
+        // OUT endpoint descriptor
+        7,                                      // bLength
+        5,                                      // bDescriptorType
+        LIGHTS_ENDPOINT | 0x00,                 // bEndpointAddress (OUT)
+        0x03,                                   // bmAttributes (0x03=intr)
+        LIGHTS_SIZE, 0,                         // wMaxPacketSize
+        LIGHTS_INTERVAL,                        // bInterval   
+#endif
+
+
 #ifdef MTP_INTERFACE
         // interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
         9,                                      // bLength
