@@ -521,25 +521,27 @@ static uint8_t multitouch_report_desc[] = {
 };
 #endif
 
-#ifdef SEREMU_INTERFACE
-static uint8_t seremu_report_desc[] = {
-        0x06, 0xC9, 0xFF,               // Usage Page 0xFFC9 (vendor defined)
-        0x09, 0x04,                     // Usage 0x04
-        0xA1, 0x5C,                     // Collection 0x5C
-        0x75, 0x08,                     //   report size = 8 bits (global)
-        0x15, 0x00,                     //   logical minimum = 0 (global)
-        0x26, 0xFF, 0x00,               //   logical maximum = 255 (global)
-        0x95, SEREMU_TX_SIZE,           //   report count (global)
-        0x09, 0x75,                     //   usage (local)
-        0x81, 0x02,                     //   Input
-        0x95, SEREMU_RX_SIZE,           //   report count (global)
-        0x09, 0x76,                     //   usage (local)
-        0x91, 0x02,                     //   Output
-        0x95, 0x04,                     //   report count (global)
-        0x09, 0x76,                     //   usage (local)
-        0xB1, 0x02,                     //   Feature
-        0xC0                            // end collection
-};
+#ifndef FANATEC_CSW
+  #ifdef SEREMU_INTERFACE
+  static uint8_t seremu_report_desc[] = {
+          0x06, 0xC9, 0xFF,               // Usage Page 0xFFC9 (vendor defined)
+          0x09, 0x04,                     // Usage 0x04
+          0xA1, 0x5C,                     // Collection 0x5C
+          0x75, 0x08,                     //   report size = 8 bits (global)
+          0x15, 0x00,                     //   logical minimum = 0 (global)
+          0x26, 0xFF, 0x00,               //   logical maximum = 255 (global)
+          0x95, SEREMU_TX_SIZE,           //   report count (global)
+          0x09, 0x75,                     //   usage (local)
+          0x81, 0x02,                     //   Input
+          0x95, SEREMU_RX_SIZE,           //   report count (global)
+          0x09, 0x76,                     //   usage (local)
+          0x91, 0x02,                     //   Output
+          0x95, 0x04,                     //   report count (global)
+          0x09, 0x76,                     //   usage (local)
+          0xB1, 0x02,                     //   Feature
+          0xC0                            // end collection
+  };
+  #endif
 #endif
 
 #ifdef RAWHID_INTERFACE
@@ -644,11 +646,16 @@ static uint8_t flightsim_report_desc[] = {
 #endif
 
 #define SEREMU_INTERFACE_DESC_POS	FLIGHTSIM_INTERFACE_DESC_POS+FLIGHTSIM_INTERFACE_DESC_SIZE
-#ifdef  SEREMU_INTERFACE
-#define SEREMU_INTERFACE_DESC_SIZE	9+9+7+7
-#define SEREMU_HID_DESC_OFFSET		SEREMU_INTERFACE_DESC_POS+9
+
+#ifdef FANATEC_CSW
+  #define SEREMU_INTERFACE_DESC_SIZE	0
 #else
-#define SEREMU_INTERFACE_DESC_SIZE	0
+  #ifdef  SEREMU_INTERFACE
+    #define SEREMU_INTERFACE_DESC_SIZE	9+9+7+7
+    #define SEREMU_HID_DESC_OFFSET		SEREMU_INTERFACE_DESC_POS+9
+  #else
+    #define SEREMU_INTERFACE_DESC_SIZE	0
+  #endif
 #endif
 
 #ifdef FANATEC_CSW
@@ -1149,42 +1156,6 @@ static uint8_t config_descriptor[CONFIG_DESC_SIZE] = {
         FLIGHTSIM_RX_INTERVAL,			// bInterval
 #endif // FLIGHTSIM_INTERFACE
 
-#ifdef SEREMU_INTERFACE
-        // interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
-        9,                                      // bLength
-        4,                                      // bDescriptorType
-        SEREMU_INTERFACE,                       // bInterfaceNumber
-        0,                                      // bAlternateSetting
-        2,                                      // bNumEndpoints
-        0x03,                                   // bInterfaceClass (0x03 = HID)
-        0x00,                                   // bInterfaceSubClass
-        0x00,                                   // bInterfaceProtocol
-        0,                                      // iInterface
-        // HID interface descriptor, HID 1.11 spec, section 6.2.1
-        9,                                      // bLength
-        0x21,                                   // bDescriptorType
-        0x11, 0x01,                             // bcdHID
-        0,                                      // bCountryCode
-        1,                                      // bNumDescriptors
-        0x22,                                   // bDescriptorType
-        LSB(sizeof(seremu_report_desc)),        // wDescriptorLength
-        MSB(sizeof(seremu_report_desc)),
-        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
-        7,                                      // bLength
-        5,                                      // bDescriptorType
-        SEREMU_TX_ENDPOINT | 0x80,              // bEndpointAddress
-        0x03,                                   // bmAttributes (0x03=intr)
-        SEREMU_TX_SIZE, 0,                      // wMaxPacketSize
-        SEREMU_TX_INTERVAL,                     // bInterval
-        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
-        7,                                      // bLength
-        5,                                      // bDescriptorType
-        SEREMU_RX_ENDPOINT,                     // bEndpointAddress
-        0x03,                                   // bmAttributes (0x03=intr)
-        SEREMU_RX_SIZE, 0,                      // wMaxPacketSize
-        SEREMU_RX_INTERVAL,			// bInterval
-#endif // SEREMU_INTERFACE
-
 #ifdef FANATEC_CSW
         // Sliders + Buttons
         // interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
@@ -1222,6 +1193,41 @@ static uint8_t config_descriptor[CONFIG_DESC_SIZE] = {
         LIGHTS_SIZE, 0,                         // wMaxPacketSize
         LIGHTS_INTERVAL,                        // bInterval   
 #else
+  #ifdef SEREMU_INTERFACE
+          // interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
+          9,                                      // bLength
+          4,                                      // bDescriptorType
+          SEREMU_INTERFACE,                       // bInterfaceNumber
+          0,                                      // bAlternateSetting
+          2,                                      // bNumEndpoints
+          0x03,                                   // bInterfaceClass (0x03 = HID)
+          0x00,                                   // bInterfaceSubClass
+          0x00,                                   // bInterfaceProtocol
+          0,                                      // iInterface
+          // HID interface descriptor, HID 1.11 spec, section 6.2.1
+          9,                                      // bLength
+          0x21,                                   // bDescriptorType
+          0x11, 0x01,                             // bcdHID
+          0,                                      // bCountryCode
+          1,                                      // bNumDescriptors
+          0x22,                                   // bDescriptorType
+          LSB(sizeof(seremu_report_desc)),        // wDescriptorLength
+          MSB(sizeof(seremu_report_desc)),
+          // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
+          7,                                      // bLength
+          5,                                      // bDescriptorType
+          SEREMU_TX_ENDPOINT | 0x80,              // bEndpointAddress
+          0x03,                                   // bmAttributes (0x03=intr)
+          SEREMU_TX_SIZE, 0,                      // wMaxPacketSize
+          SEREMU_TX_INTERVAL,                     // bInterval
+          // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
+          7,                                      // bLength
+          5,                                      // bDescriptorType
+          SEREMU_RX_ENDPOINT,                     // bEndpointAddress
+          0x03,                                   // bmAttributes (0x03=intr)
+          SEREMU_RX_SIZE, 0,                      // wMaxPacketSize
+          SEREMU_RX_INTERVAL,			// bInterval
+  #endif // SEREMU_INTERFACE
   #ifdef JOYSTICK_INTERFACE
           // interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
           9,                                      // bLength
@@ -1679,10 +1685,6 @@ const usb_descriptor_list_t usb_descriptor_list[] = {
 	//wValue, wIndex, address,          length
 	{0x0100, 0x0000, device_descriptor, sizeof(device_descriptor)},
 	{0x0200, 0x0000, config_descriptor, sizeof(config_descriptor)},
-#ifdef SEREMU_INTERFACE
-	{0x2200, SEREMU_INTERFACE, seremu_report_desc, sizeof(seremu_report_desc)},
-	{0x2100, SEREMU_INTERFACE, config_descriptor+SEREMU_HID_DESC_OFFSET, 9},
-#endif
 #ifdef KEYBOARD_INTERFACE
         {0x2200, KEYBOARD_INTERFACE, keyboard_report_desc, sizeof(keyboard_report_desc)},
         {0x2100, KEYBOARD_INTERFACE, config_descriptor+KEYBOARD_HID_DESC_OFFSET, 9},
@@ -1695,6 +1697,10 @@ const usb_descriptor_list_t usb_descriptor_list[] = {
         {0x2200, JOYSTICK_INTERFACE, joystick_report_desc, sizeof(joystick_report_desc)},
         {0x2100, JOYSTICK_INTERFACE, config_descriptor+JOYSTICK_HID_DESC_OFFSET, 9},
 #else
+  #ifdef SEREMU_INTERFACE
+  	{0x2200, SEREMU_INTERFACE, seremu_report_desc, sizeof(seremu_report_desc)},
+  	{0x2100, SEREMU_INTERFACE, config_descriptor+SEREMU_HID_DESC_OFFSET, 9},
+  #endif
   #ifdef JOYSTICK_INTERFACE
           {0x2200, JOYSTICK_INTERFACE, joystick_report_desc, sizeof(joystick_report_desc)},
           {0x2100, JOYSTICK_INTERFACE, config_descriptor+JOYSTICK_HID_DESC_OFFSET, 9},
