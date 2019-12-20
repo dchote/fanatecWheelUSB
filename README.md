@@ -1,10 +1,10 @@
 # fanatecWheelUSB
-USB controller adapter based on the TeensyLC to allow direct USB support for Fanatec Wheel Rims.
+USB controller adapter based on the TeensyLC/Teensy3 to allow direct USB support for Fanatec Wheel Rims.
 
 This firmware can convert any Fanatec CSW Steering Wheel to a **standalone USB version**, so you can use it with any other wheel base, like an OpenSimWheel (OSW), or SimXperience Accuforce.
 
 ## Supported Hardware
-This firmware has been developed and tested on a **Teensy LC** but should work with any other compatible hardware.  
+This firmware has been developed and tested on a **Teensy LC** and **Teensy 3.2** but should work with any other compatible hardware.  
 The only requirement so far, is at least 1 SPI connectivity available.
 
 ### Shopping List
