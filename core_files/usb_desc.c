@@ -1726,7 +1726,7 @@ const usb_descriptor_list_t usb_descriptor_list[] = {
         #ifdef JOYSTICK_NAME
           {0x0304, 0x0409, (const uint8_t *)&usb_string_interface_name, 0},
         #endif
-	{0, 0, NULL, 0}
+        {0, 0, NULL, 0}
 };
 
 

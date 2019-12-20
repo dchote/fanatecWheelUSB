@@ -262,13 +262,11 @@ let me know?  http://forum.pjrc.com/forums/4-Suggestions-amp-Bug-Reports
   #define ENDPOINT7_CONFIG	ENDPOINT_TRANSMIT_ONLY
 
 #elif defined(FANATEC_CSW) 
-  #define DEVICE_CLASS          0xEF
-  #define DEVICE_SUBCLASS       0x02
-  #define DEVICE_PROTOCOL       0x01
   #define MANUFACTURER_NAME     {'F','a','n','a','t','e','c'}
   #define MANUFACTURER_NAME_LEN	7
   #define PRODUCT_NAME          {'C', 'l', 'u', 'b', 'S', 'p', 'o', 'r', 't', ' ', 'W', 'h', 'e' ,'e', 'l'}
   #define PRODUCT_NAME_LEN      15
+
   #define EP0_SIZE              64
   #define NUM_USB_BUFFERS       24
   
@@ -307,8 +305,8 @@ let me know?  http://forum.pjrc.com/forums/4-Suggestions-amp-Bug-Reports
     #define CDC_RX_SIZE           64
     #define CDC_TX_SIZE           64
   #else
-    #define VENDOR_ID             0x1209
-    #define PRODUCT_ID            0xdaa0
+    #define VENDOR_ID             0x0eb7
+    #define PRODUCT_ID            0x038e
     
     #define CDC_NUM_EP            0
     #define CDC_NUM_INT           0
