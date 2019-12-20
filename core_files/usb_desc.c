@@ -95,7 +95,7 @@ static uint8_t device_descriptor[] = {
 #ifdef FANATEC_CSW
         0x0C, 0x01,
 #elif BCD_DEVICE
-	      LSB(BCD_DEVICE), MSB(BCD_DEVICE),       // bcdDevice
+        LSB(BCD_DEVICE), MSB(BCD_DEVICE),       // bcdDevice
 #else
   // For USB types that don't explicitly define BCD_DEVICE,
   // use the minor version number to help teensy_ports
@@ -284,7 +284,7 @@ static uint8_t joystick_report_desc[] = {
     0x75, 0x04,                    //   REPORT_SIZE (4)
     0x95, 0x01,                    //   REPORT_COUNT (1)
     0x81, 0x42,                    //   INPUT (Data,Var,Abs)
-      //   padding ( total 124 -> (-256) 132 (4x33) )
+    //   padding ( total 124 -> (-256) 132 (4x33) )
     0x95, 0x21,                    //   REPORT_COUNT (33)
     0x75, 0x04,                    //   REPORT_SIZE (4)
     0x81, 0x01,                    //   INPUT (Cnst,Ary,Abs)
@@ -327,11 +327,11 @@ static uint8_t joystick_report_desc[] = {
     0x95, 0x01,                    //     REPORT_COUNT (1)
     0x91, 0x02,                    //     OUTPUT (Data,Var,Abs)
     0xc0,                          //   END_COLLECTION
-      //   padding ( 4 + 4 )
+    //   padding ( 4 + 4 )
     0x95, 0x0d,                    //   REPORT_COUNT (13)
     0x75, 0x04,                    //   REPORT_SIZE (4)
     0x91, 0x01,                    // OUTPUT (Cnst,Ary,Abs)
-      //  no padding ( 64 )
+    //  no padding ( 64 )
     0xc0                           // END_COLLECTION
 
     /*
@@ -346,7 +346,7 @@ static uint8_t joystick_report_desc[] = {
     0x91, 0x02,                    //     OUTPUT (Data,Var,Abs)
     0xc0,                          //   END_COLLECTION
     0x91, 0x02,                    // OUTPUT (Cnst,Ary,Abs)
-      //  no padding ( 64 )
+    //  no padding ( 64 )
     0xc0                           // END_COLLECTION
     */
 };
