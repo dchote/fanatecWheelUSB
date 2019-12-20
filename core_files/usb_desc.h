@@ -39,12 +39,12 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#define ENDPOINT_UNUSED			0x00
-#define ENDPOINT_TRANSMIT_ONLY		0x15
-#define ENDPOINT_RECEIVE_ONLY		0x19
-#define ENDPOINT_TRANSMIT_AND_RECEIVE	0x1D
-#define ENDPOINT_RECEIVE_ISOCHRONOUS	0x18
-#define ENDPOINT_TRANSMIT_ISOCHRONOUS	0x14
+#define ENDPOINT_UNUSED               0x00
+#define ENDPOINT_TRANSMIT_ONLY        0x15
+#define ENDPOINT_RECEIVE_ONLY         0x19
+#define ENDPOINT_TRANSMIT_AND_RECEIVE 0x1D
+#define ENDPOINT_RECEIVE_ISOCHRONOUS  0x18
+#define ENDPOINT_TRANSMIT_ISOCHRONOUS 0x14
 
 /*
 Each group of #define lines below corresponds to one of the
@@ -262,16 +262,16 @@ let me know?  http://forum.pjrc.com/forums/4-Suggestions-amp-Bug-Reports
   #define ENDPOINT7_CONFIG	ENDPOINT_TRANSMIT_ONLY
 
 #elif defined(FANATEC_CSW) 
-  #define DEVICE_CLASS		  0xEF
-  #define DEVICE_SUBCLASS	  0x02
-  #define DEVICE_PROTOCOL	  0x01
-  #define MANUFACTURER_NAME	{'F','a','n','a','t','e','c'}
+  #define DEVICE_CLASS          0xEF
+  #define DEVICE_SUBCLASS       0x02
+  #define DEVICE_PROTOCOL       0x01
+  #define MANUFACTURER_NAME     {'F','a','n','a','t','e','c'}
   #define MANUFACTURER_NAME_LEN	7
-  #define PRODUCT_NAME		  {'C', 'l', 'u', 'b', 'S', 'p', 'o', 'r', 't', ' ', 'W', 'h', 'e' ,'e', 'l'}
-  #define PRODUCT_NAME_LEN	15
-  #define EP0_SIZE		      64
-  #define NUM_USB_BUFFERS   24
-
+  #define PRODUCT_NAME          {'C', 'l', 'u', 'b', 'S', 'p', 'o', 'r', 't', ' ', 'W', 'h', 'e' ,'e', 'l'}
+  #define PRODUCT_NAME_LEN      15
+  #define EP0_SIZE              64
+  #define NUM_USB_BUFFERS       24
+  
   #define JOYSTICK_NAME         {'C', 'l', 'u', 'b', 'S', 'p', 'o', 'r', 't', ' ', 'W', 'h', 'e' ,'e', 'l'}
   #define JOYSTICK_NAME_LEN     15
   
@@ -285,18 +285,18 @@ let me know?  http://forum.pjrc.com/forums/4-Suggestions-amp-Bug-Reports
   
   #define JOYSTICK_NUM_EP       2
   #define JOYSTICK_NUM_INT      1
-
+  
   #ifdef HAS_DEBUG
-    #define VENDOR_ID       0x1209
-    #define PRODUCT_ID      0xdaa0
-
-    #define DEVICE_CLASS    0xEF
-    #define DEVICE_SUBCLASS 0x02
-    #define DEVICE_PROTOCOL 0x01
-
-    #define CDC_NUM_EP       3
-    #define CDC_NUM_INT      2
-
+    #define VENDOR_ID           0x1209
+    #define PRODUCT_ID          0xdaa0
+    
+    #define DEVICE_CLASS        0xEF
+    #define DEVICE_SUBCLASS     0x02
+    #define DEVICE_PROTOCOL     0x01
+    
+    #define CDC_NUM_EP          3
+    #define CDC_NUM_INT         2
+    
     #define CDC_IAD_DESCRIPTOR    1
     #define CDC_STATUS_INTERFACE  1
     #define CDC_DATA_INTERFACE    2 // Serial
@@ -307,12 +307,12 @@ let me know?  http://forum.pjrc.com/forums/4-Suggestions-amp-Bug-Reports
     #define CDC_RX_SIZE           64
     #define CDC_TX_SIZE           64
   #else
-    #define VENDOR_ID   0x1209
-    #define PRODUCT_ID  0xdaa0
-
-    #define CDC_NUM_EP  0
-    #define CDC_NUM_INT 0
-
+    #define VENDOR_ID             0x1209
+    #define PRODUCT_ID            0xdaa0
+    
+    #define CDC_NUM_EP            0
+    #define CDC_NUM_INT           0
+    
     #define SEREMU_INTERFACE      1	// Serial emulation
     #define SEREMU_TX_ENDPOINT    1
     #define SEREMU_TX_SIZE        64
@@ -321,17 +321,17 @@ let me know?  http://forum.pjrc.com/forums/4-Suggestions-amp-Bug-Reports
     #define SEREMU_RX_SIZE        32
     #define SEREMU_RX_INTERVAL    2
   #endif
-
+  
   #define NUM_ENDPOINTS     JOYSTICK_NUM_EP + CDC_NUM_EP
   #define NUM_INTERFACE     JOYSTICK_NUM_INT + CDC_NUM_INT
-
+  
   #define ENDPOINT1_CONFIG  ENDPOINT_TRANSMIT_AND_RECEIVE
   #define ENDPOINT2_CONFIG  ENDPOINT_TRANSMIT_ONLY
   #define ENDPOINT3_CONFIG  ENDPOINT_RECEIVE_ONLY
   #define ENDPOINT4_CONFIG  ENDPOINT_TRANSMIT_ONLY
   #define ENDPOINT5_CONFIG  ENDPOINT_TRANSMIT_ONLY
   #define ENDPOINT6_CONFIG  ENDPOINT_RECEIVE_ONLY
-
+  
 #elif defined(USB_TOUCHSCREEN)
   #define VENDOR_ID		0x16C0
   #define PRODUCT_ID		0x04D3

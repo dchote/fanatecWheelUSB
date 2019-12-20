@@ -28,7 +28,7 @@
 #include "fanatec_joystick.h"
 
 #include "fanatec.h"
-#include "Debouncer.h"
+#include "debouncer.h"
 
 
 #define MAX_SPEED 5000

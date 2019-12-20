@@ -22,7 +22,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Debouncer.h"
+#include "debouncer.h"
 #include "Arduino.h"
 
 Debouncer::Debouncer()

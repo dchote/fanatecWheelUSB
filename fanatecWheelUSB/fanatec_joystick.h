@@ -36,8 +36,6 @@
 #ifndef FANATECjoystick_h_
 #define FANATECjoystick_h_
 
-#include "usb_desc.h"
-
 #include <inttypes.h>
 
 // C language implementation
