@@ -25,17 +25,17 @@
 #include "debouncer.h"
 #include "Arduino.h"
 
-Debouncer::Debouncer()
+debouncer::debouncer()
   : previous_millis(0)
   , interval_millis(50)
   , value(0)
 {}
 
-void Debouncer::interval(uint16_t interval_millis) {
+void debouncer::interval(uint16_t interval_millis) {
   this->interval_millis = interval_millis;
 }
 
-uint8_t Debouncer::get(uint8_t current_value) {
+uint8_t debouncer::get(uint8_t current_value) {
   if (current_value != value) {
     if (millis() - previous_millis >= interval_millis) {
       previous_millis = millis();

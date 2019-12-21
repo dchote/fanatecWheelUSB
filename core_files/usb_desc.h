@@ -278,6 +278,7 @@ let me know?  http://forum.pjrc.com/forums/4-Suggestions-amp-Bug-Reports
   #define JOYSTICK_ENDPOINT     1
   #define JOYSTICK_SIZE         32
   #define JOYSTICK_INTERVAL     5
+  
   #define LIGHTS_ENDPOINT       1
   #define LIGHTS_SIZE           8
   #define LIGHTS_INTERVAL       16

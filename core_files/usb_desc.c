@@ -1682,9 +1682,9 @@ void usb_init_serialnumber(void)
 // This table provides access to all the descriptor data above.
 
 const usb_descriptor_list_t usb_descriptor_list[] = {
-	//wValue, wIndex, address,          length
-	{0x0100, 0x0000, device_descriptor, sizeof(device_descriptor)},
-	{0x0200, 0x0000, config_descriptor, sizeof(config_descriptor)},
+        //wValue, wIndex, address,          length
+        {0x0100, 0x0000, device_descriptor, sizeof(device_descriptor)},
+        {0x0200, 0x0000, config_descriptor, sizeof(config_descriptor)},
 #ifdef KEYBOARD_INTERFACE
         {0x2200, KEYBOARD_INTERFACE, keyboard_report_desc, sizeof(keyboard_report_desc)},
         {0x2100, KEYBOARD_INTERFACE, config_descriptor+KEYBOARD_HID_DESC_OFFSET, 9},
@@ -1698,21 +1698,21 @@ const usb_descriptor_list_t usb_descriptor_list[] = {
         {0x2100, JOYSTICK_INTERFACE, config_descriptor+JOYSTICK_HID_DESC_OFFSET, 9},
 #else
   #ifdef SEREMU_INTERFACE
-  	{0x2200, SEREMU_INTERFACE, seremu_report_desc, sizeof(seremu_report_desc)},
-  	{0x2100, SEREMU_INTERFACE, config_descriptor+SEREMU_HID_DESC_OFFSET, 9},
+        {0x2200, SEREMU_INTERFACE, seremu_report_desc, sizeof(seremu_report_desc)},
+        {0x2100, SEREMU_INTERFACE, config_descriptor+SEREMU_HID_DESC_OFFSET, 9},
   #endif
   #ifdef JOYSTICK_INTERFACE
-          {0x2200, JOYSTICK_INTERFACE, joystick_report_desc, sizeof(joystick_report_desc)},
-          {0x2100, JOYSTICK_INTERFACE, config_descriptor+JOYSTICK_HID_DESC_OFFSET, 9},
+        {0x2200, JOYSTICK_INTERFACE, joystick_report_desc, sizeof(joystick_report_desc)},
+        {0x2100, JOYSTICK_INTERFACE, config_descriptor+JOYSTICK_HID_DESC_OFFSET, 9},
   #endif
 #endif
 #ifdef RAWHID_INTERFACE
-	{0x2200, RAWHID_INTERFACE, rawhid_report_desc, sizeof(rawhid_report_desc)},
-	{0x2100, RAWHID_INTERFACE, config_descriptor+RAWHID_HID_DESC_OFFSET, 9},
+        {0x2200, RAWHID_INTERFACE, rawhid_report_desc, sizeof(rawhid_report_desc)},
+        {0x2100, RAWHID_INTERFACE, config_descriptor+RAWHID_HID_DESC_OFFSET, 9},
 #endif
 #ifdef FLIGHTSIM_INTERFACE
-	{0x2200, FLIGHTSIM_INTERFACE, flightsim_report_desc, sizeof(flightsim_report_desc)},
-	{0x2100, FLIGHTSIM_INTERFACE, config_descriptor+FLIGHTSIM_HID_DESC_OFFSET, 9},
+        {0x2200, FLIGHTSIM_INTERFACE, flightsim_report_desc, sizeof(flightsim_report_desc)},
+        {0x2100, FLIGHTSIM_INTERFACE, config_descriptor+FLIGHTSIM_HID_DESC_OFFSET, 9},
 #endif
 #ifdef KEYMEDIA_INTERFACE
         {0x2200, KEYMEDIA_INTERFACE, keymedia_report_desc, sizeof(keymedia_report_desc)},

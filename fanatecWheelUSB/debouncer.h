@@ -27,10 +27,10 @@
 
 #include <inttypes.h>
 
-class Debouncer
+class debouncer
 {
   public:
-    Debouncer();
+    debouncer();
     
     void interval(uint16_t interval_millis);
     uint8_t get(uint8_t value);

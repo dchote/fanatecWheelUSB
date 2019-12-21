@@ -75,7 +75,14 @@ teensy30.menu.usb.fanatec.build.usbtype=FANATEC_CSW
 teensyLC.menu.usb.fanatec=Fanatec CSW
 teensyLC.menu.usb.fanatec.build.usbtype=FANATEC_CSW
 ``` 
-Open the project in the Arduino IDE and then select your Teensy board (either LC or 3.1/3.2), then under USB Type select `Fanatec CSW`.  The project should then build.
+Open in the project in the Arduino IDE and configure the following under the `Tools` menu.
+- Board: `Teensy LC` or `Teensy 3.2/3.1`
+- USB Type:  `Fanatec CSW`.  
+- CPU Speed: `24mhz`
+- Optimize: `Smallest Code`
+
+
+The project should then build.
 
 ## Original Project
 This is a fork of @darknao's btClubSportWheel project found here: https://github.com/darknao/btClubSportWheel

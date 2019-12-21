@@ -75,8 +75,8 @@ uint32_t usb_time;
 
 uint8_t hid_pck[7];
 
-Debouncer *btDebncer = new Debouncer[89];
-Debouncer hatDebncer = Debouncer();
+debouncer *btDebncer = new debouncer[89];
+debouncer hatDebncer = debouncer();
 
 byte rotary_debounce = 0;
 int8_t rotary_value = 0;
@@ -86,15 +86,6 @@ uint8_t clutch_max = 0xFF;
 
 void setup() {
   fsetup();
-
-  /*
-    8 Extra Buttons
-    can be connected
-    from pin 2 to pin 9
-  */
-  for (int pin = 2; pin <= 9; ++pin) {
-    pinMode(pin, INPUT_PULLUP);
-  }
 
   // debounce timer for hat switch
   hatDebncer.interval(50);
@@ -523,12 +514,6 @@ void loop() {
       // no wheel  ?
       whClear();
       delay(10);
-  }
-
-  // Need more inputs?
-  // 8 Extra Buttons (pins 2 to 9 -> 41 to 48)
-  for (int i = 0; i < 8; ++i) {
-    whButton(77+i, !digitalRead(2+i));
   }
 
   // Send HID report (all inputs)
