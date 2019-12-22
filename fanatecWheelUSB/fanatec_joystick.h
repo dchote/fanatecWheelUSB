@@ -43,10 +43,6 @@
 extern "C" {
 #endif
   
-#define LIGHTS_ENDPOINT 1
-#define LIGHTS_SIZE 8
-#define LIGHTS_INTERVAL 16
-  
 int fanatec_joystick_send(void);
 extern uint8_t fanatec_joystick_data[32];
 

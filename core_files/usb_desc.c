@@ -70,7 +70,7 @@ static uint8_t device_descriptor[] = {
         18,                                     // bLength
         1,                                      // bDescriptorType
 #ifdef FANATEC_CSW
-        0x00, 0x02,                             // bcdUSB
+        0x00, 0x02,                             // bcdUSB USB spec 2.0
 #else
         0x10, 0x01,                             // bcdUSB
 #endif
@@ -92,8 +92,8 @@ static uint8_t device_descriptor[] = {
         EP0_SIZE,                               // bMaxPacketSize0
         LSB(VENDOR_ID), MSB(VENDOR_ID),         // idVendor
         LSB(PRODUCT_ID), MSB(PRODUCT_ID),       // idProduct
-#ifdef FANATEC_CSW
-        0x0C, 0x01,
+#ifdef FANATEC_CSW 
+        0x0C, 0x01, // TODO review this
 #elif BCD_DEVICE
         LSB(BCD_DEVICE), MSB(BCD_DEVICE),       // bcdDevice
 #else
@@ -716,7 +716,7 @@ static uint8_t config_descriptor[CONFIG_DESC_SIZE] = {
         // configuration descriptor, USB spec 9.6.3, page 264-266, Table 9-10
         9,                                      // bLength;
         2,                                      // bDescriptorType;
-        LSB(CONFIG_DESC_SIZE),                 // wTotalLength
+        LSB(CONFIG_DESC_SIZE),                  // wTotalLength
         MSB(CONFIG_DESC_SIZE),
         NUM_INTERFACE,                          // bNumInterfaces
         1,                                      // bConfigurationValue
@@ -1172,7 +1172,7 @@ static uint8_t config_descriptor[CONFIG_DESC_SIZE] = {
         9,                                      // bLength
         0x21,                                   // bDescriptorType
         0x11, 0x01,                             // bcdHID
-        0,                                      // bCountryCode
+        0x21,                                   // bCountryCode
         1,                                      // bNumDescriptors
         0x22,                                   // bDescriptorType
         LSB(sizeof(joystick_report_desc)),      // wDescriptorLength

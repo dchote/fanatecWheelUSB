@@ -265,23 +265,23 @@ let me know?  http://forum.pjrc.com/forums/4-Suggestions-amp-Bug-Reports
 #elif defined(FANATEC_CSW) 
   #define MANUFACTURER_NAME     {'F','a','n','a','t','e','c'}
   #define MANUFACTURER_NAME_LEN	7
-  #define PRODUCT_NAME          {'C', 'l', 'u', 'b', 'S', 'p', 'o', 'r', 't', ' ', 'W', 'h', 'e' ,'e', 'l'}
-  #define PRODUCT_NAME_LEN      15
+  #define PRODUCT_NAME          {'F', 'A', 'N', 'A', 'T', 'E', 'C', ' ', 'C', 'l', 'u', 'b', 'S', 'p', 'o', 'r', 't', ' ', 'W', 'h', 'e', 'e', 'l', ' ', 'B', 'a', 's', 'e', ' ', 'V', '2'}
+  #define PRODUCT_NAME_LEN      31
 
   #define EP0_SIZE              64
   #define NUM_USB_BUFFERS       24
   
-  #define JOYSTICK_NAME         {'C', 'l', 'u', 'b', 'S', 'p', 'o', 'r', 't', ' ', 'W', 'h', 'e' ,'e', 'l'}
-  #define JOYSTICK_NAME_LEN     15
+  #define JOYSTICK_NAME         {'F', 'A', 'N', 'A', 'T', 'E', 'C', ' ', 'C', 'l', 'u', 'b', 'S', 'p', 'o', 'r', 't', ' ', 'W', 'h', 'e', 'e', 'l', ' ', 'B', 'a', 's', 'e', ' ', 'V', '2'}
+  #define JOYSTICK_NAME_LEN     31
   
   #define JOYSTICK_INTERFACE    0
   #define JOYSTICK_ENDPOINT     1
   #define JOYSTICK_SIZE         32
-  #define JOYSTICK_INTERVAL     5
+  #define JOYSTICK_INTERVAL     2
   
   #define LIGHTS_ENDPOINT       1
   #define LIGHTS_SIZE           8
-  #define LIGHTS_INTERVAL       16
+  #define LIGHTS_INTERVAL       2
   
   #define JOYSTICK_NUM_EP       2
   #define JOYSTICK_NUM_INT      1
@@ -308,7 +308,7 @@ let me know?  http://forum.pjrc.com/forums/4-Suggestions-amp-Bug-Reports
     #define CDC_TX_SIZE           64
   #else
     #define VENDOR_ID             0x0eb7
-    #define PRODUCT_ID            0x038e
+    #define PRODUCT_ID            0x0001
     
     #define CDC_NUM_EP            0
     #define CDC_NUM_INT           0
