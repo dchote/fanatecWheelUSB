@@ -286,41 +286,19 @@ let me know?  http://forum.pjrc.com/forums/4-Suggestions-amp-Bug-Reports
   #define JOYSTICK_NUM_EP       2
   #define JOYSTICK_NUM_INT      1
   
-  #ifdef HAS_DEBUG
-    #define VENDOR_ID           0x1209
-    #define PRODUCT_ID          0xdaa0
-    
-    #define DEVICE_CLASS        0xEF
-    #define DEVICE_SUBCLASS     0x02
-    #define DEVICE_PROTOCOL     0x01
-    
-    #define CDC_NUM_EP          3
-    #define CDC_NUM_INT         2
-    
-    #define CDC_IAD_DESCRIPTOR    1
-    #define CDC_STATUS_INTERFACE  1
-    #define CDC_DATA_INTERFACE    2 // Serial
-    #define CDC_ACM_ENDPOINT      2
-    #define CDC_RX_ENDPOINT       3
-    #define CDC_TX_ENDPOINT       4
-    #define CDC_ACM_SIZE          16
-    #define CDC_RX_SIZE           64
-    #define CDC_TX_SIZE           64
-  #else
-    #define VENDOR_ID             0x0eb7
-    #define PRODUCT_ID            0x0001
-    
-    #define CDC_NUM_EP            0
-    #define CDC_NUM_INT           0
-    
-    #define SEREMU_INTERFACE      1	// Serial emulation
-    #define SEREMU_TX_ENDPOINT    1
-    #define SEREMU_TX_SIZE        64
-    #define SEREMU_TX_INTERVAL    1
-    #define SEREMU_RX_ENDPOINT    2
-    #define SEREMU_RX_SIZE        32
-    #define SEREMU_RX_INTERVAL    2
-  #endif
+  #define VENDOR_ID             0x0eb7
+  #define PRODUCT_ID            0x0001
+
+  #define CDC_NUM_EP            0
+  #define CDC_NUM_INT           0
+
+  #define SEREMU_INTERFACE      1	// Serial emulation
+  #define SEREMU_TX_ENDPOINT    1
+  #define SEREMU_TX_SIZE        64
+  #define SEREMU_TX_INTERVAL    1
+  #define SEREMU_RX_ENDPOINT    2
+  #define SEREMU_RX_SIZE        32
+  #define SEREMU_RX_INTERVAL    2
   
   #define NUM_ENDPOINTS     JOYSTICK_NUM_EP + CDC_NUM_EP
   #define NUM_INTERFACE     JOYSTICK_NUM_INT + CDC_NUM_INT
