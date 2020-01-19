@@ -123,10 +123,15 @@ uint8_t getFirstByte() {
       The CSL (P1) transaction size is only 1 byte, so it's not affected.
     */
 
-    Serial.print("Firstbyte: ");
+    Serial.print("Firstbyte ");
+    Serial.print(z);
+    Serial.print(" : ");
     Serial.println(firstByte, HEX);
+    
+    if (firstByte == 0xFF) {
+      Serial.println("nothing connected");
       
-    if (firstByte  == 0x52) {
+    } else if (firstByte  == 0x52) {
       Serial.println("csw: fast forward to next transaction");
       
       for (int i=0; i<=31; i++) {
@@ -188,10 +193,10 @@ uint8_t getFirstByte() {
     SPI.endTransaction();
     
     // wait for CS to settle a little
-    delayMicroseconds(10);
+    //delayMicroseconds(10);
   }
   
-  delay(10);
+  //delay(10);
   
   return firstByte;
 }
@@ -237,13 +242,13 @@ void transferCswData(csw_out_t* out, csw_in_t* in, uint8_t length) {
     in->raw[length - 1] = (in->raw[length - 1] << 1);
   }
   
-    uint8_t crc = crc8(in->raw, length-1);
-    if ((crc&0xFE) != in->crc) {
-      Serial.print("Bad CRC: ");
-      Serial.print(in->crc, HEX);
-      Serial.print(" != ");
-      Serial.println(crc, HEX);
-    }
+  uint8_t crc = crc8(in->raw, length-1);
+  if ((crc&0xFE) != in->crc) {
+    Serial.print("Bad CRC: ");
+    Serial.print(in->crc, HEX);
+    Serial.print(" != ");
+    Serial.println(crc, HEX);
+  }
   
   if ((in->header & 0xFE) != 0xa4) {
     rim_inserted = NO_WHEEL;
@@ -293,13 +298,13 @@ void transferMclData(mcl_out_t* out, mcl_in_t* in, uint8_t length) {
   digitalWrite(CS, HIGH);
   SPI.endTransaction();
   
-    uint8_t crc = crc8(in->raw, length-1);
-    if (crc != in->crc) {
-      Serial.print("Bad CRC: ");
-      Serial.print(in->crc, HEX);
-      Serial.print(" != ");
-      Serial.println(crc, HEX);
-    }
+  uint8_t crc = crc8(in->raw, length-1);
+  if (crc != in->crc) {
+    Serial.print("Bad CRC: ");
+    Serial.print(in->crc, HEX);
+    Serial.print(" != ");
+    Serial.println(crc, HEX);
+  }
   
   if (in->header != 0xA5) {
     rim_inserted = NO_WHEEL;
@@ -378,6 +383,18 @@ uint8_t csw7segToAscii(uint8_t csw_disp) {
   return ascii;
 }
 
+void fwelcome() {
+  delay(500);
+  
+  SPI.beginTransaction(settingsA);
+  digitalWrite(CS, LOW);
+  
+  Serial.println(SPI.transfer(0x53), HEX);
+  Serial.println(SPI.transfer(0x53), HEX);
+  
+  digitalWrite(CS, HIGH);
+  SPI.endTransaction();
+}
 
 void fsetup() {
   pinMode(CS, OUTPUT);

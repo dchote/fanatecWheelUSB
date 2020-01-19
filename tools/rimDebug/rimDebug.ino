@@ -6,6 +6,10 @@
 void setup();
 void loop();
 
+void init_wheel();
+void whClear();
+void whSetId(unsigned int val);
+
 csw_in_t csw_in;
 csw_out_t csw_out;
 
@@ -15,23 +19,42 @@ csl_out_t csl_out;
 mcl_in_t mcl_in;
 mcl_out_t mcl_out;
 
-uint32_t disp_timout;
+bool bt_connected;
 bool show_fwvers;
+
+uint32_t timing;
+uint32_t timing_bt;
+uint32_t disp_timout;
 
 
 void setup() {
   fsetup();
 	
+  whClear();
+  
+  // prebuild output packet
+  memset(csw_out.raw, 0, sizeof(csw_out_t));
+  memset(csl_out.raw, 0, sizeof(csl_out_t));
+  memset(mcl_out.raw, 0, sizeof(mcl_out_t));
+  
+  csw_out.header = 0xa5;
+  mcl_out.header = 0xa5;
+  csw_out.id = 0x00;
+  
   Serial.begin(115200);
   Serial.println("MCU Ready");
 	
-  for (int i = 0; i < 100; ++i) {
+  for (int i = 0; i < 10; ++i) {
     delay(100);
     Serial.print(".");
     /* code */
   }
-
+  
   Serial.println("check for active connection...");
+  
+  fwelcome();
+  
+  timing = micros();
 }
 
 void loop() {
@@ -48,11 +71,15 @@ void loop() {
          Serial.print(":");
        }
        Serial.println();
+       
+       whSetId(csw_in.id);
       break;
     case CSL_WHEEL:
       Serial.println("CSL Wheel");
       
-      transferCslData(&csl_out, &csl_in, sizeof(csl_out.raw), 0x00);      
+      transferCslData(&csl_out, &csl_in, sizeof(csl_out.raw), 0x00);
+      whSetId(CSLP1XBOX);
+      
       init_wheel();
       
       csl_out.disp = csw7segToCsl(csw_out.disp[0]);
@@ -75,6 +102,8 @@ void loop() {
       
       init_wheel();
       
+      whSetId(mcl_in.id);
+      
       Serial.print("MCL_IN:");
       for (int i=0; i<sizeof(mcl_in.raw); i++) {
         Serial.print(mcl_in.raw[i], HEX);
@@ -85,9 +114,11 @@ void loop() {
       break;
     default:
       Serial.println("No or Unknown Wheel");
+      //fwelcome();
+      whClear();
     }
     
-    delay(2000);
+    delay(5000);
 }
 
 void init_wheel() {
@@ -156,4 +187,15 @@ void init_wheel() {
       csw_out.raw[4] = 0x0A;
     }
   }
+}
+
+void whSetId(unsigned int val) {
+  csw_out.id = val & 0xFF;
+}
+
+void whClear(){
+  whSetId(NO_RIM);
+  
+  show_fwvers = true;
+  disp_timout = 0;
 }

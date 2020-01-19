@@ -154,5 +154,6 @@ uint8_t csw7segToCsl(uint8_t csw_disp);
 uint8_t csw7segToAscii(uint8_t csw_disp);
 uint8_t cswLedsToCsl(uint16_t csw_leds);
 
+void fwelcome();
 void fsetup();
 #endif
